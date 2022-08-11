@@ -1,0 +1,33 @@
+a{
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #fff;
+}
+
+.app-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 80px;
+}
+
+.app-header h3 {
+	font-size: 24px;
+}
+
+.app-header ul{
+	display: flex;
+	margin: 0;
+	align-items: center;
+}
+
+.app-header ul li{
+	margin-right: 20px;
+	font-size: 18px;
+	background-color: inherit;
+	border: 0;
+}
+
