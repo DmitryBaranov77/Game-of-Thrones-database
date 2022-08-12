@@ -14,11 +14,11 @@ const App = () => {
 			</Container>
 			<Container>
 				<Row>
-					<Col sm={{span: 5, offset: 0}}><RandomChar/></Col>
+					<Col lg='6'><RandomChar/></Col>
 				</Row>
 				<Row>
-					<Col sm='6'><CharList/></Col>
-					<Col sm='6'><CharCard/></Col>
+					<Col lg='6'><CharList/></Col>
+					<Col lg='6'><CharCard/></Col>
 				</Row>
 			</Container>
 		</>
