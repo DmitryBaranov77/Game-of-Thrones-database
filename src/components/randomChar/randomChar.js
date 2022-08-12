@@ -6,6 +6,11 @@ import ErrorMessage from "../errorMessage/errorMessage";
 import './randomChar.css'
 
 export default class RandomChar extends React.Component{
+	state = {
+		char: {},
+		loading: true,
+		error: false
+	}
 
 	constructor() {
 		super();
@@ -13,15 +18,10 @@ export default class RandomChar extends React.Component{
 	}
 
 	gotService = new GotService();
-	state = {
-		char: {},
-		loading: true,
-		error: false
-	}
-
+	
 	onCharLoaded = (char) => {
 		this.setState({
-			char, 
+			char: char, 
 			loading: false
 		})
 	}
@@ -33,9 +33,8 @@ export default class RandomChar extends React.Component{
 		})
 	}
 
-	updateCharacter = () => {
-		// const id = Math.floor(Math.random()*140 + 25);
-		const id = 1231231231;
+	updateCharacter() {
+		const id = Math.floor(Math.random()*140 + 25);
 		this.gotService.getCharacter(id)
 			.then(this.onCharLoaded)
 			.catch(this.onError);
@@ -61,23 +60,23 @@ const View = ({char}) => {
 	const {name, gender, born, died, culture} = char;
 	return (
 		<>
-			<h4>Random Character: {name}</h4>
+			<h4>Random Character: {name ? name : 'no data('}</h4>
 				<ListGroup as="ul" variant="flush">
 					<ListGroupItem as="li">
 						<span className="term">Gender</span>
-						<span>{gender}</span>
+						<span>{gender ? gender : 'no data('}</span>
 					</ListGroupItem>
 					<ListGroupItem as="li">
 						<span className="term">Born</span>
-						<span>{born}</span>
+						<span>{born ? born : 'no data('}</span>
 					</ListGroupItem>
 					<ListGroupItem as="li">
 						<span className="term">Died</span>
-						<span>{died}</span>
+						<span>{died ? died : 'no data('}</span>
 					</ListGroupItem>
 					<ListGroupItem as="li">
 						<span className="term">Culture</span>
-						<span>{culture}</span>
+						<span>{culture ? culture : 'no data('}</span>
 					</ListGroupItem>
 				</ListGroup>
 		</>
