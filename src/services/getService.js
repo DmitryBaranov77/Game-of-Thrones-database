@@ -1,5 +1,5 @@
 export default class GotService {
-	url = 'https://www.anapioficeandfire.com/api/';
+	url = 'https://www.anapioficeandfire.com/api';
 
 	async getResource(url) {
 		const res = await fetch(`${this.url}${url}`);
@@ -11,8 +11,8 @@ export default class GotService {
 		return await res.json();
 	}
 
-	async getAllCharacters(){
-		const result = await this.getResource(`/characters?page=5&pageSize=10`);
+	async getAllCharacters(page){
+		const result = await this.getResource(`/characters?page=${page}&PageSize=10`);
 		return result.map(this._transformCharacter);
 	}
 
@@ -47,7 +47,8 @@ export default class GotService {
 			gender: char.gender,
 			born: char.born,
 			died: char.died,
-			culture: char.culture
+			culture: char.culture,
+			url: char.url
 		}
 	}
 
@@ -58,7 +59,8 @@ export default class GotService {
 			words: house.words,
 			titles: house.titles,
 			overlord: house.overlord,
-			ancestralWeapons: house.ancestralWeapons
+			ancestralWeapons: house.ancestralWeapons,
+			url: house.url
 		}
 	}
 
@@ -67,7 +69,8 @@ export default class GotService {
 			name: book.name,
 			numberOfPages: book.numberOfPages,
 			publiser: book.publiser,
-			released: book.released
+			released: book.released,
+			url: book.url
 		}
 	}
 }

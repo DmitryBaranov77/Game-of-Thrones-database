@@ -6,19 +6,22 @@ import ErrorMessage from "../errorMessage/errorMessage";
 import './randomChar.css'
 
 export default class RandomChar extends React.Component{
+	gotService = new GotService();
 	state = {
 		char: {},
 		loading: true,
 		error: false
 	}
 
-	constructor() {
-		super();
+	componentDidMount() {
 		this.updateCharacter();
+		this.timerId = setInterval(this.updateCharacter, 1500);
 	}
 
-	gotService = new GotService();
-	
+	componentWillUnmount() {
+		clearInterval(this.timerId);
+	}
+
 	onCharLoaded = (char) => {
 		this.setState({
 			char: char, 
@@ -33,8 +36,8 @@ export default class RandomChar extends React.Component{
 		})
 	}
 
-	updateCharacter() {
-		const id = Math.floor(Math.random()*140 + 25);
+	updateCharacter = () => {
+		const id = Math.floor(Math.random()*2138 + 12);
 		this.gotService.getCharacter(id)
 			.then(this.onCharLoaded)
 			.catch(this.onError);
