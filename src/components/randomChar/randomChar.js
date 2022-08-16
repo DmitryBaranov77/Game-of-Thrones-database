@@ -37,7 +37,7 @@ export default class RandomChar extends React.Component{
 	}
 
 	updateCharacter = () => {
-		const id = Math.floor(Math.random()*2138 + 12);
+		const id = Math.floor(Math.random()*2126 + 12);
 		this.gotService.getCharacter(id)
 			.then(this.onCharLoaded)
 			.catch(this.onError);
@@ -63,23 +63,23 @@ const View = ({char}) => {
 	const {name, gender, born, died, culture} = char;
 	return (
 		<>
-			<h4>Random Character: {name ? name : 'no data('}</h4>
+			<h4>Random Character: {name}</h4>
 				<ListGroup as="ul" variant="flush">
 					<ListGroupItem as="li">
 						<span className="term">Gender</span>
-						<span>{gender ? gender : 'no data('}</span>
+						<span>{gender}</span>
 					</ListGroupItem>
 					<ListGroupItem as="li">
 						<span className="term">Born</span>
-						<span>{born ? born : 'no data('}</span>
+						<span>{born}</span>
 					</ListGroupItem>
 					<ListGroupItem as="li">
 						<span className="term">Died</span>
-						<span>{died ? died : 'no data('}</span>
+						<span>{died}</span>
 					</ListGroupItem>
 					<ListGroupItem as="li">
 						<span className="term">Culture</span>
-						<span>{culture ? culture : 'no data('}</span>
+						<span>{culture}</span>
 					</ListGroupItem>
 				</ListGroup>
 		</>

@@ -1,14 +1,14 @@
 import React from "react";
 import { ListGroup, ListGroupItem, Spinner, Button } from "react-bootstrap";
-import GotService from "../../services/getService";
-import './charList.css';
+import './itemList.css';
 
-export default class CharList extends React.Component{
-	gotService = new GotService();
+export default class ItemList extends React.Component{
+	getData = this.props.getData;
+	maxPages = this.props.maxPages;
 
 	state = {
-		charList: null,
-		currentPage: 2
+		itemList: null,
+		currentPage: 1
 	}
 
 	componentDidMount() {
@@ -22,17 +22,17 @@ export default class CharList extends React.Component{
 	}
 
 	updateList(page){
-		this.gotService.getAllCharacters(page)
-				.then( charList => {
-					this.setState({
-						charList
-					})
+		this.getData(page)
+			.then( itemList => {
+				this.setState({
+					itemList
 				})
+			})
 	}
 
 	nextPage = () => {
 		this.setState(prevState => {
-			if(prevState.currentPage > 213){
+			if(prevState.currentPage > (this.maxPages - 1)){
 				return {
 					currentPage: 1
 				}
@@ -48,7 +48,7 @@ export default class CharList extends React.Component{
 		this.setState(prevState => {
 			if(prevState.currentPage < 2){
 				return {
-					currentPage: 214
+					currentPage: this.maxPages
 				}
 			}
 
@@ -60,17 +60,21 @@ export default class CharList extends React.Component{
 
 	renderItems(arr) {
 		return arr.map(item => {
-			return <ListGroupItem key={item.url} action onClick={() => this.props.onCharSelected(this.getId(item.url))}>{item.name}</ListGroupItem>
+			const {id} = item;
+			const label = this.props.renderItem(item);
+			return (
+				<ListGroupItem 
+					key={id} 
+					action onClick={() => this.props.onItemSelected(id)}>
+					{label}
+				</ListGroupItem>
+			)
 		})
 	}
 
-	getId(url){
-		return url.split('https://www.anapioficeandfire.com/api/characters/')[1];
-	}
-
 	render() {
-		const {charList, currentPage} = this.state;
-		const content = charList ? this.renderItems(charList) : <div className="spinner"><Spinner as='h4' animation="grow" variant="dark" /></div>;
+		const {itemList, currentPage} = this.state;
+		const content = itemList ? this.renderItems(itemList) : <div className="spinner"><Spinner as='h4' animation="grow" variant="dark" /></div>;
 
 		return (
 			<div className="list-block rounded">
@@ -78,7 +82,7 @@ export default class CharList extends React.Component{
 					{content}
 				</ListGroup>
 				<div className="pages-counter">
-					<span>Page {currentPage} of 214</span>
+					<span>Page {currentPage} of {this.maxPages}</span>
 					<div>
 						<Button variant="dark" onClick={this.prevPage}>Prev</Button>
 						<Button variant="dark" onClick={this.nextPage}>Next</Button>
