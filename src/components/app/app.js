@@ -6,6 +6,7 @@ import ErrorMessage from "../errorMessage/errorMessage";
 import { CharacterPage, BoooksPage, HousesPage } from "../pages";
 import './app.css';
 import GotService from "../../services/getService";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 
 export default class App extends React.Component {
@@ -31,22 +32,27 @@ export default class App extends React.Component {
 		if(error) return <ErrorMessage/>;
 
 		return (
-			<>
-				<Container>
-					<Header/>
-				</Container>
-				<Container>
-					<Row>
-						<Col lg='6'>
-							{randomChar}
-							<Button className="toggle-button" variant="dark" onClick={this.toggleRandomChar}>Toggle random character block</Button>
-						</Col>
-					</Row>
-					<CharacterPage/>
-					<BoooksPage/>
-					<HousesPage/>
-				</Container>
-			</>
+			<Router>
+				<div className="app">
+					<Container>
+						<Header/>
+					</Container>
+					<Container>
+						<Row>
+							<Col lg='6'>
+								{randomChar}
+								<Button className="toggle-button" variant="dark" onClick={this.toggleRandomChar}>Toggle random character block</Button>
+							</Col>
+						</Row>
+						<Routes>
+							<Route path='/' element={<h1>Welcome to GOT DB</h1>}/>
+							<Route path="characters" element={<CharacterPage/>} />
+							<Route path="houses" element={<HousesPage/>} />
+							<Route path="books" element={<BoooksPage/>} />
+						</Routes>
+					</Container>
+				</div>
+			</Router>
 		)
 	}
 }
