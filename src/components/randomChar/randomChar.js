@@ -3,7 +3,8 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 import GotService from "../../services/getService";
 import Spinner from "react-bootstrap/esm/Spinner";
 import ErrorMessage from "../errorMessage/errorMessage";
-import './randomChar.css'
+import './randomChar.css';
+import PropTypes from 'prop-types';
 
 export default class RandomChar extends React.Component{
 	gotService = new GotService();
@@ -12,10 +13,14 @@ export default class RandomChar extends React.Component{
 		loading: true,
 		error: false
 	}
+	static defaultProps = {
+		interval: 15000
+	}
+
 
 	componentDidMount() {
 		this.updateCharacter();
-		this.timerId = setInterval(this.updateCharacter, 1500);
+		this.timerId = setInterval(this.updateCharacter, this.props.interval);
 	}
 
 	componentWillUnmount() {
@@ -58,6 +63,10 @@ export default class RandomChar extends React.Component{
 		)
 	}
 }
+
+RandomChar.propTypes = {
+	interval: PropTypes.number
+} 
 
 const View = ({char}) => {
 	const {name, gender, born, died, culture} = char;

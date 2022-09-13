@@ -1,6 +1,7 @@
 import React from "react";
 import { ListGroup, ListGroupItem, Spinner, Button } from "react-bootstrap";
 import './itemList.css';
+import PropTypes from 'prop-types';
 
 export default class ItemList extends React.Component{
 	getData = this.props.getData;
@@ -91,4 +92,12 @@ export default class ItemList extends React.Component{
 			</div>
 		)
 	}
+}
+
+ItemList.defaultProps = {
+	onItemSelected: () => {}
+}
+
+ItemList.propTypes = {
+	onItemSelected: PropTypes.func
 }
